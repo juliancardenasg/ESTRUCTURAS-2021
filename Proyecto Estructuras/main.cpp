@@ -171,7 +171,6 @@ int main()
         {
             imprimirAyuda();   
 
-            //hola esto es una prueba         
         }
 
         cout << endl;
