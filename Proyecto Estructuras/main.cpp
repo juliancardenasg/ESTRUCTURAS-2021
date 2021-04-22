@@ -169,7 +169,9 @@ int main()
         //COMANDO AYUDA
         if (split[0].compare("ayuda") == 0)
         {
-            imprimirAyuda();            
+            imprimirAyuda();   
+
+            //hola esto es una prueba         
         }
 
         cout << endl;
