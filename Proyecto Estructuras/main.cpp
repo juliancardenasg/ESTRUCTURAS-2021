@@ -17,6 +17,7 @@ int main()
   string intermedio;
   vector<string> split;
   vector<string> secuencias;
+  vector<histograma> histogramas;
   stringstream chek1;
   int sec_enmascaradas;
   int sec_subsecuencias;
@@ -164,6 +165,13 @@ int main()
         {
             cout << endl;
             exit(0);
+        }
+    
+        //COMANDO DE CODIFICAR
+        if (split[0].compare("codificar") == 0)
+        {
+            histogramas = contarFrecuencias(secuencias);       
+                        
         }
 
         //COMANDO AYUDA

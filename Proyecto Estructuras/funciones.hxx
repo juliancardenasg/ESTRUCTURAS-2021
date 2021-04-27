@@ -9,6 +9,20 @@
 
 using namespace std;
 
+
+
+struct frecuencia
+{
+    char letra;
+    int frecuencia;
+};
+
+struct histograma {
+
+    frecuencia codigos[18];
+
+};
+
 vector<string> cargar(string archivo)
 {
     stringstream auxiliar;
@@ -17,7 +31,7 @@ vector<string> cargar(string archivo)
     vector<string> destino;
     int cont = 0;
 
-    entrada.open(archivo);    
+    entrada.open(archivo);
 
     while (!entrada.eof())
     {
@@ -136,7 +150,6 @@ void historgrama(vector<string> secuencias, string secuencia)
 
     char codigos[18] = {'A', 'C', 'G', 'T', 'U', 'R', 'Y', 'K', 'M', 'S', 'W', 'B', 'D', 'H', 'V', 'N', 'X', '-'};
     int cont = 0;
-
     bool existe = false;
 
     for (int i = 0; i < secuencias.size(); i++)
@@ -154,6 +167,7 @@ void historgrama(vector<string> secuencias, string secuencia)
 
                     if (secuencias[i].at(j) == codigos[k])
                     {
+
                         cont++;
                     }
                 }
@@ -167,7 +181,6 @@ void historgrama(vector<string> secuencias, string secuencia)
     {
         cout << "Secuencia invalida " << endl;
     }
-
 }
 
 int guardar(vector<string> secuencias, string destino)
@@ -192,24 +205,67 @@ int guardar(vector<string> secuencias, string destino)
     return -1;
 }
 
-void imprimirAyuda(){
+void imprimirAyuda()
+{
 
-    cout<<"\nMENU DE AYUDA:"<<endl;
-    cout<<"**cargar (-nombre del archivo)"<<endl;
-    cout<<"  Para cargar un archivo ya existente ingrese\n  el comando como se indica en pantalla seguido\n  del nombre del archivo.\n"<<endl;
-    cout<<"**conteo"<<endl;
-    cout<<"  El comando conteo no posee argumentos, se usa\n  con el fin de contar las secuencias cargadas\n  en el sistema.\n"<<endl;
-    cout<<"**listar_secuencias"<<endl;
-    cout<<"  El comando listar_secuencias no posee argumentos\n  se usa con el fin de listar las bases que posee\n  cada secuencia y se escribe como se indica en\n  pantalla.\n"<<endl;
-    cout<<"**Histograma (-descripcion de la secuencia)"<<endl;
-    cout<<"  El comando Histograma recibe como parametro la\n  descripcion de una secuencia (se recomienda utilizar\n  listar_secuencias previamente), mostrara un conteo\n  de cada codigo presente en la secuencia seleccionada.\n"<<endl;
-    cout<<"**es_subsecuencia (-subsecuencia a buscar)"<<endl;
-    cout<<"  Este comando recibe como unico parametro una\n  subsecuencia a buscar dentro de todas las secuencias\n  cargadas, posterior a esto se indica en cuantas secuencias\n  existe la subsecuencia dada.\n"<<endl;
-    cout<<"**enmascarar (-subsecuencia a enmascarar)"<<endl;
-    cout<<"  Este comando recibe como unico parametro una\n  subsecuencia o serie de codigos a enmascarar en todas\n  las secuencias cargadas en memoria, posteriomente indicara\n  cuantas secuencias fueron enmascaradas.\n"<<endl;
-    cout<<"**guardar (-nombre del archivo)"<<endl;
-    cout<<"  El comando guardar recibe como unico parametro el\n  nombre del archivo en el que se guardaran las secuencias\n  existentes en memoria, usualmente despues de modificaciones.\n"<<endl;
-    cout<<"**salir"<<endl;
-    cout<<"  Este comando lo sacara del sistema inmediatamente."<<endl;
+    cout << "\nMENU DE AYUDA:" << endl;
+    cout << "**cargar (-nombre del archivo)" << endl;
+    cout << "  Para cargar un archivo ya existente ingrese\n  el comando como se indica en pantalla seguido\n  del nombre del archivo.\n"
+         << endl;
+    cout << "**conteo" << endl;
+    cout << "  El comando conteo no posee argumentos, se usa\n  con el fin de contar las secuencias cargadas\n  en el sistema.\n"
+         << endl;
+    cout << "**listar_secuencias" << endl;
+    cout << "  El comando listar_secuencias no posee argumentos\n  se usa con el fin de listar las bases que posee\n  cada secuencia y se escribe como se indica en\n  pantalla.\n"
+         << endl;
+    cout << "**Histograma (-descripcion de la secuencia)" << endl;
+    cout << "  El comando Histograma recibe como parametro la\n  descripcion de una secuencia (se recomienda utilizar\n  listar_secuencias previamente), mostrara un conteo\n  de cada codigo presente en la secuencia seleccionada.\n"
+         << endl;
+    cout << "**es_subsecuencia (-subsecuencia a buscar)" << endl;
+    cout << "  Este comando recibe como unico parametro una\n  subsecuencia a buscar dentro de todas las secuencias\n  cargadas, posterior a esto se indica en cuantas secuencias\n  existe la subsecuencia dada.\n"
+         << endl;
+    cout << "**enmascarar (-subsecuencia a enmascarar)" << endl;
+    cout << "  Este comando recibe como unico parametro una\n  subsecuencia o serie de codigos a enmascarar en todas\n  las secuencias cargadas en memoria, posteriomente indicara\n  cuantas secuencias fueron enmascaradas.\n"
+         << endl;
+    cout << "**guardar (-nombre del archivo)" << endl;
+    cout << "  El comando guardar recibe como unico parametro el\n  nombre del archivo en el que se guardaran las secuencias\n  existentes en memoria, usualmente despues de modificaciones.\n"
+         << endl;
+    cout << "**salir" << endl;
+    cout << "  Este comando lo sacara del sistema inmediatamente." << endl;
+}
 
+vector<histograma> contarFrecuencias(vector<string> secuencias)
+{
+
+    char codigos[18] = {'A', 'C', 'G', 'T', 'U', 'R', 'Y', 'K', 'M', 'S', 'W', 'B', 'D', 'H', 'V', 'N', 'X', '-'};
+    int cont = 0;    
+    vector<histograma> histogramas;
+    histograma haux;
+
+    for (int i = 0; i < secuencias.size(); i++)
+    {
+
+        for (int k = 0; k < 18; k++)
+        {
+            cont = 0;
+
+            for (int j = 0; j < secuencias[i].length(); j++)
+            {
+
+                if (secuencias[i].at(j) == codigos[k])
+                {
+                    
+                    cont++;
+                }
+            }
+            
+            haux.codigos[k].frecuencia = cont;
+            haux.codigos[k].letra = codigos[k];                        
+        }
+
+        histogramas.push_back(haux);
+    }
+   
+
+    return histogramas;
 }
